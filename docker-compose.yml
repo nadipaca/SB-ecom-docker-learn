@@ -1,0 +1,30 @@
+version: "3.7"
+
+services:
+  app:
+    build: .
+    ports:
+      - "8089:8082"
+    networks:
+      - p-network
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: ecom          # match Spring Boot DB
+      MYSQL_USER: charmi
+      MYSQL_PASSWORD: 1234
+      MYSQL_ROOT_PASSWORD: root  # required
+    ports:
+      - "3307:3306"
+    networks:
+      - p-network
+#    volumes:
+#      - mysql-p-data:/var/lib/mysql/ecom
+
+networks:
+  p-network:
+    driver: bridge
+
+volumes:
+  mysql-p-data:
